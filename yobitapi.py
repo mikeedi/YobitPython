@@ -132,7 +132,7 @@ class Yobit():
         type(order_id) :: string or int
         """
         params = {
-                'method' : 'OrderInfo',
+                'method' : 'CancelOrder',
                 'order_id' : order_id,
                 'nonce' : str(int(time.time()))}
         body = urlencode(params).encode()
@@ -214,7 +214,7 @@ class Yobit():
         """
         """
         params = {
-                'method' : 'GetDepositAddress',
+                'method' : 'WithdrawCoinsToAddress',
                 'coinName' : coinName,
                 'amount' : amount,
                 'address' : address,
@@ -240,7 +240,7 @@ class Yobit():
         """
         """
         params = {
-                'method' : 'GetDepositAddress',
+                'method' : 'CreateYobicode',
                 'currency' : currency,
                 'amount' : amount,
                 'nonce' : str(int(time.time()))}
@@ -265,7 +265,7 @@ class Yobit():
         """
         """
         params = {
-                'method' : 'GetDepositAddress',
+                'method' : 'RedeemYobicode',
                 'coupon' : coupon,
                 'nonce' : str(int(time.time()))}
         body = urlencode(params).encode()
@@ -337,33 +337,3 @@ class Yobit():
         req = requests.get(url, params={'limit' : limit})
         return json.loads(req.text)
 
-key = 'A62FBCCCDC101EFD2C0162B8A9311F5C'
-secret = '57fa4adcb01552ef5fa6855f45c9c1ed'
-
-
-yob = Yobit(key, secret)
-# print(yob.getInfo())
-print(yob.depth(pairs=['ltc_btc', 'waves_btc']))
-print(yob.trades(pairs=['ltc_btc', 'waves_btc']))
-
-
-# rur = 50
-# coin = 'mad'
-# print('_________{}_________'.format(coin))
-# prices_asks = yob.depth(pairs=[coin+'_rur'], limit=5)[coin+'_rur']['asks']
-# for p in prices_asks:
-#     price = p[0]
-#     amount = p[1]
-#     if rur < price * amount and rur > 0.1:
-#         print(yob.Trade(coin+'_rur', 'buy', price, rur / price))
-#         print('купить: ', rur / price, ' койнов', coin)
-#         rur = 0
-#     elif rur > price * amount and rur > 0.1:
-#         print(yob.Trade(coin+'_rur', 'buy', price, amount))
-#         print('купить: ', amount, ' койнов', coin)
-#         rur -= amount * price
-#     else:
-#         print('денег больше нет')
-
-
-# print(yob.Trade('decr_rur', 'sell', 900.0234, 0.05))
