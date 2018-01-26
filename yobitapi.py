@@ -14,7 +14,7 @@ from urllib.request import urlopen, Request
 
 
 
-class Yobit():
+class YoBit():
     def __init__(self, key=None, secret=None):
         self.key = key
         self.secret = secret
@@ -234,7 +234,7 @@ class Yobit():
         if 'return' in response.keys():
             return response['return']
         elif 'error' in response.keys():
-            return response['error']         
+            return response        
 
     def CreateYobicode(self, currency, amount):
         """
@@ -259,13 +259,13 @@ class Yobit():
         if 'return' in response.keys():
             return response['return']
         elif 'error' in response.keys():
-            return response['error'] 
+            return response
 
-    def RedeemYobicode(sefl, coupon):
+    def RedeemYobicode(self, coupon):
         """
         """
         params = {
-                'method' : 'RedeemYobicode',
+                'method' : 'RedeemCoupon',
                 'coupon' : coupon,
                 'nonce' : str(int(time.time()))}
         body = urlencode(params).encode()
@@ -336,4 +336,3 @@ class Yobit():
 
         req = requests.get(url, params={'limit' : limit})
         return json.loads(req.text)
-
