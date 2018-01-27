@@ -18,12 +18,12 @@ class YoBit():
     def __init__(self, key=None, secret=None):
         self.key = key
         self.secret = secret
-        self.url_trade = 'https://yobit.net/tapi/'
-        self.url_public = 'https://yobit.net/api/3/'
+        self.url_trade = 'https://yobit.io/tapi/'
+        self.url_public = 'https://yobit.io/api/3/'
 
     def getInfo(self):
         """
-        desription
+        
         """
         params = {'method' : 'getInfo',
                 'nonce' : str(int(time.time()))}
@@ -39,15 +39,11 @@ class YoBit():
             'Key' : self.key,
         }
         req = requests.post(self.url_trade, body, headers=headers)
-        response =  json.loads(req.text)
-        if response['success'] == 1:
-            return response['return']
-        else:
-            return response['error']
+        return json.loads(req.text)
 
     def Trade(self, pair, bORs, rate, amount):
         """
-        desription
+        
         """
         params = {
                 'method' : 'Trade',
@@ -67,11 +63,7 @@ class YoBit():
             'Key' : self.key,
         }
         req = requests.post(self.url_trade, body, headers=headers)
-        response =  json.loads(req.text)
-        if response['success'] == 1:
-            return response['return']
-        else:
-            return response['error']
+        return json.loads(req.text)
 
     def ActiveOrders(self, pair):
         """
@@ -94,13 +86,8 @@ class YoBit():
             'Key' : self.key,
         }
         req = requests.post(self.url_trade, body, headers=headers)
-        response =  json.loads(req.text)
-        if 'return' in response.keys():
-            return response['return']
-        elif 'error' in response.keys():
-            return response['error']
-        else:
-            return 'You dont have orders for this pair'    
+        return json.loads(req.text)
+
 
     def OrderInfo(self, order_id):
         """
@@ -121,11 +108,8 @@ class YoBit():
             'Key' : self.key,
         }
         req = requests.post(self.url_trade, body, headers=headers)
-        response =  json.loads(req.text)
-        if 'return' in response.keys():
-            return response['return']
-        elif 'error' in response.keys():
-            return response['error']
+        return json.loads(req.text)
+
 
     def CancelOrder(self, order_id):
         """
@@ -146,16 +130,13 @@ class YoBit():
             'Key' : self.key,
         }
         req = requests.post(self.url_trade, body, headers=headers)
-        response =  json.loads(req.text)
-        if 'return' in response.keys():
-            return response['return']
-        elif 'error' in response.keys():
-            return response['error']
+        return json.loads(req.text)
+
 
     def TradeHistory(self, pair, start=0, count=1000, from_id=0,  
                             end_id=None, order='DESC', since=0, end=None):
         """
-        
+        type(pair) == str
         """
         params = {
                 'method' : 'TradeHistory',
@@ -179,11 +160,8 @@ class YoBit():
             'Key' : self.key,
         }
         req = requests.post(self.url_trade, body, headers=headers)
-        response =  json.loads(req.text)
-        if 'return' in response.keys():
-            return response['return']
-        elif 'error' in response.keys():
-            return response['error']
+        return json.loads(req.text)
+
 
     def GetDepositAddress(self, coinName, need_new=0):
         """
@@ -204,11 +182,8 @@ class YoBit():
             'Key' : self.key,
         }
         req = requests.post(self.url_trade, body, headers=headers)
-        response =  json.loads(req.text)
-        if 'return' in response.keys():
-            return response['return']
-        elif 'error' in response.keys():
-            return response['error'] 
+        return json.loads(req.text)
+
 
     def WithdrawCoinsToAddress(self, coinName, amount, address):
         """
@@ -230,11 +205,8 @@ class YoBit():
             'Key' : self.key,
         }
         req = requests.post(self.url_trade, body, headers=headers)
-        response =  json.loads(req.text)
-        if 'return' in response.keys():
-            return response['return']
-        elif 'error' in response.keys():
-            return response        
+        return json.loads(req.text)
+      
 
     def CreateYobicode(self, currency, amount):
         """
@@ -255,11 +227,8 @@ class YoBit():
             'Key' : self.key,
         }
         req = requests.post(self.url_trade, body, headers=headers)
-        response =  json.loads(req.text)
-        if 'return' in response.keys():
-            return response['return']
-        elif 'error' in response.keys():
-            return response
+        return json.loads(req.text)
+
 
     def RedeemYobicode(self, coupon):
         """
@@ -279,11 +248,8 @@ class YoBit():
             'Key' : self.key,
         }
         req = requests.post(self.url_trade, body, headers=headers)
-        response =  json.loads(req.text)
-        if 'return' in response.keys():
-            return response['return']
-        elif 'error' in response.keys():
-            return response['error']             
+        return json.loads(req.text)
+            
 
 
     """Method without key and secret"""
@@ -295,10 +261,10 @@ class YoBit():
         req = requests.get(url)
         return json.loads(req.text)
 
-    def ticker(self, pairs=None):
+    def ticker(self, pairs=[]):
         """
         statistic for each pair
-        if pairs = ['ltc_btc', 'bch_btc'] 
+        if pairs = ['ltc_btc', 'waves_btc'] 
         then url looks like https://yobit.net/api/3/ticker/ltc_btc-waves_btc
         """
         url = self.url_public + 'ticker/'
@@ -308,11 +274,14 @@ class YoBit():
                 url += '-' 
 
         req = requests.get(url)
-        return json.loads(req.text)
+        if req.ok:
+            return json.loads(req.text)
+        else:
+            return req
 
-    def depth(self, limit=10, pairs=[]):
+    def depth(self, pairs=[], limit=10):
         """
-        description
+        Active orders for pairs
         """
         url = self.url_public + 'depth/'
         for i in range(len(pairs)):
@@ -321,12 +290,15 @@ class YoBit():
                 url += '-'
 
         req = requests.get(url, params={'limit' : limit})
-        return json.loads(req.text)
+        if req.ok:
+            return json.loads(req.text)
+        else:
+            return req
 
 
-    def trades(self, limit=10, pairs=[]):
+    def trades(self, pairs=[], limit=10):
         """
-        description
+        Last order books
         """
         url = self.url_public + 'trades/'
         for i in range(len(pairs)):
@@ -335,4 +307,8 @@ class YoBit():
                 url += '-'
 
         req = requests.get(url, params={'limit' : limit})
-        return json.loads(req.text)
+        if req.ok:
+            return json.loads(req.text)
+        else:
+            return req
+
