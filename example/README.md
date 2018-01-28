@@ -9,20 +9,36 @@ pip3 install -r requirements.txt
 
 ```bash
 python3 orderbooks.py --pair 'eth_btc, doge_rur' --limit 5
->>>
-Namespace(limit=5, pairs='eth_btc, doge_rur')
+>>>Namespace(limit=5, pairs='eth_btc, doge_rur')
 eth_btc:
       price    amount     price      amount
 1  0.103593  0.043659  0.103252  107.974391
 2  0.103593  0.002079  0.103190    4.793215
-3  0.103770  0.174653  0.103190    1.083856
-4  0.103770  6.549202  0.103189    0.342446
-5  0.103800  4.355767  0.103183    0.002860
+....
 
 doge_rur:
     price         amount     price        amount
 1  0.4121    3944.602053  0.410000     94.789311
 2  0.4121   10954.708694  0.408100   4817.131268
-3  0.4121   39962.003678  0.408000  88600.694672
-4  0.4122    1749.339242  0.408000   9428.853991
-5  0.4122  557655.277591  0.407996      8.976886
+....
+```
+  * show last books (with color in terminal)
+```bash
+python trades.py --pair 'doge_rur, eth_btc, trx_rur' --limit 5
+>>>Namespace(limit=5, pairs='doge_rur, eth_btc, trx_rur')
+doge_rur:
+Jan 28 19:46:38 BUY 0.41099995 213.36856745
+Jan 28 19:46:15 BUY 0.41099996 229.95398373
+....
+
+eth_btc:
+Jan 28 19:46:31 SELL 0.10267722 0.00187976
+Jan 28 19:45:58 SELL 0.10319 0.14854089
+....
+
+trx_rur:
+Jan 28 19:46:31 SELL 3.72628458 43.69501218
+Jan 28 19:46:29 BUY 3.72676241 5.92427865
+....
+```
+
