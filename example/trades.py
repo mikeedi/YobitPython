@@ -1,3 +1,8 @@
+# add path to find Yobit module
+import sys 
+sys.path.append("../")
+
+
 from Yobit.api import YoBit
 import time
 import pandas as pd
@@ -32,5 +37,4 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--pairs', type=str)
     parser.add_argument('--limit', type=int, default=10)
-    print(parser.parse_args())
     main(config=parser.parse_args())
