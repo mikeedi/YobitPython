@@ -265,7 +265,7 @@ class YoBit():
         """
         Return statistic for each pair
 
-        pairs can be list or string with commas:
+        pairs can be written as list or string with commas
         >>> pairs
         ... ['doge_btc', 'waves_rur', 'eth_btc']
         >>> pairs
@@ -289,7 +289,7 @@ class YoBit():
         """
         Return active orders for pairs
 
-        pairs can be list or string with commas:
+        pairs can be written as list or string with commas:        
         >>> pairs
         ... ['doge_btc', 'waves_rur', 'eth_btc']
         >>> pairs
@@ -314,7 +314,7 @@ class YoBit():
         """
         Return last order books
 
-        pairs can be list or string with commas:
+        pairs can be written as list or string with commas:
         >>> pairs
         ... ['doge_btc', 'waves_rur', 'eth_btc']
         >>> pairs
