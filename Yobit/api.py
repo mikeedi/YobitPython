@@ -263,10 +263,16 @@ class YoBit():
 
     def ticker(self, pairs=[]):
         """
-        statistic for each pair
-        if pairs = ['ltc_btc', 'waves_btc'] 
-        then url looks like https://yobit.net/api/3/ticker/ltc_btc-waves_btc
+        Return statistic for each pair
+
+        pairs can be list or string with commas:
+        >>> pairs
+        ... ['doge_btc', 'waves_rur', 'eth_btc']
+        >>> pairs
+        ... 'doge_btc, waves_rur, eth_btc'
         """
+        if type(pairs) == str:
+            pairs = pairs.replace(" ", "").split(',')
         url = self.url_public + 'ticker/'
         for i in range(len(pairs)):
             url += pairs[i]
@@ -281,8 +287,16 @@ class YoBit():
 
     def depth(self, pairs=[], limit=10):
         """
-        Active orders for pairs
+        Return active orders for pairs
+
+        pairs can be list or string with commas:
+        >>> pairs
+        ... ['doge_btc', 'waves_rur', 'eth_btc']
+        >>> pairs
+        ... 'doge_btc, waves_rur, eth_btc'
         """
+        if type(pairs) == str:
+            pairs = pairs.replace(" ", "").split(',')
         url = self.url_public + 'depth/'
         for i in range(len(pairs)):
             url += pairs[i]
@@ -298,8 +312,17 @@ class YoBit():
 
     def trades(self, pairs=[], limit=10):
         """
-        Last order books
+        Return last order books
+
+        pairs can be list or string with commas:
+        >>> pairs
+        ... ['doge_btc', 'waves_rur', 'eth_btc']
+        >>> pairs
+        ... 'doge_btc, waves_rur, eth_btc'
         """
+        if type(pairs) == str:
+            pairs = pairs.replace(" ", "").split(',')
+
         url = self.url_public + 'trades/'
         for i in range(len(pairs)):
             url += pairs[i]
