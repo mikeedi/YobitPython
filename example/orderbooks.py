@@ -40,6 +40,6 @@ def main(config):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--pairs', type=str)
+    parser.add_argument('--pairs')
     parser.add_argument('--limit', type=int, default=10)
     main(config=parser.parse_args())
